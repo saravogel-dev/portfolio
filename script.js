@@ -61,3 +61,23 @@ darkModeToggle.addEventListener('click', function() {
         localStorage.setItem('darkMode', 'disabled');
     }
 });
+
+// Back to Top Button
+const backToTopBtn = document.getElementById('back-to-top');
+
+// Show button when user scrolls down 300px
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+});
+
+// Scroll to top when button is clicked
+backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
