@@ -64,10 +64,10 @@
         outline-offset: 2px;
         }
 
-body.dark-mode button:focus,
-body.dark-mode a:focus {
-    outline-color: #81b29a;
-}
+        body.dark-mode button:focus,
+        body.dark-mode a:focus {
+        outline-color: #81b29a;
+        }
 
         /* Back to Top Button */
         .back-to-top-btn {
@@ -174,10 +174,10 @@ body.dark-mode a:focus {
         justify-content: center;
         }
 
-.dark-mode-btn:hover {
-    background: #e07a5f;
-    transform: scale(1.1);
-}
+        .dark-mode-btn:hover {
+        background: #e07a5f;
+        transform: scale(1.1);
+        }
 
         /* Container */
         .container {
@@ -223,9 +223,10 @@ body.dark-mode a:focus {
         }
 
         .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem; /* Add explicit top margin */
+        margin-bottom: 2rem;
         }
 
         .btn {
@@ -346,6 +347,17 @@ body.dark-mode a:focus {
             color: #3d405b;
             line-height: 1.6;
         }
+
+        .quick-skills {
+        font-size: 1.125rem;
+        color: #3d405b;
+        margin-bottom: 2.5rem; /* Increased from default */
+        line-height: 1.6;
+        }
+
+.quick-skills strong {
+    font-weight: 600;
+}
 
         /* About */
         .about {
