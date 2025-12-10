@@ -58,6 +58,17 @@
             color: white;
         }
 
+        button:focus,
+        a:focus {
+        outline: 3px solid #e07a5f;
+        outline-offset: 2px;
+        }
+
+body.dark-mode button:focus,
+body.dark-mode a:focus {
+    outline-color: #81b29a;
+}
+
         /* Back to Top Button */
         .back-to-top-btn {
             position: fixed;
