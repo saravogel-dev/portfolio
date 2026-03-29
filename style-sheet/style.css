@@ -527,11 +527,11 @@
 
         /* Footer */
         footer {
-            background: #797d62;
+            background: #81b29a;
             color: #f4f1de;
             text-align: center;
             padding: 2rem;
-            border-top: 2px solid #81b29a;
+            border-top: 2px solid #f4f1de;
         }
 
         /* Responsive */
