@@ -57,10 +57,10 @@ nav { background: var(--primary); position: sticky; top: 0; z-index: 100; }
 }
 
 .cs-subtitle {
-    font-size: 1.0625rem;
+    font-size: 1.08rem;
     color: rgba(242,245,240,0.7);
     line-height: 1.75;
-    max-width: auto;
+    max-width: none;
     margin-bottom: 3rem;
 }
 
