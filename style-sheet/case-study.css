@@ -42,12 +42,39 @@ nav { background: var(--primary); position: sticky; top: 0; z-index: 100; }
 .back-link { font-size: 0.875rem; color: rgba(242,245,240,0.7); transition: color 0.2s; }
 .back-link:hover { color: var(--bg); }
 .cs-type { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #74c69d; }
-.cs-title { font-family: var(--font-serif); font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 300; color: var(--bg); line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 1.25rem; max-width: none;}
+.cs-title {  font-family: var(--font-serif);
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-weight: 300;
+    color: var(--bg);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.25rem;
+    max-width: none;}
 .cs-subtitle { font-size: 1.0625rem; color: rgba(242,245,240,0.75); line-height: 1.75; max-width: 620px; margin-bottom: 2.5rem; max-width: none;}
-.cs-stats { display: flex; gap: 3rem; flex-wrap: wrap; }
-.stat { display: flex; flex-direction: column; }
-.stat-num { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--bg); line-height: 1; }
-.stat-label { font-size: 0.75rem; color: rgba(242,245,240,0.6); margin-top: 4px; letter-spacing: 0.05em; }
+.cs-stats {  display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem; }
+.stat { display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    justify-content: center;
+    gap: 4px;}
+.stat-num {   font-family: var(--font-serif);
+    font-size: 2.25rem;
+    font-weight: 300;
+    color: var(--bg);
+    line-height: 1; }
+.stat-label {  font-size: 0.6875rem;
+    color: rgba(242,245,240,0.6);
+    text-align: center;
+    letter-spacing: 0.05em;
+    padding: 0 8px; }
 
 /* ─── Overview strip ─── */
 .cs-overview { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1.5rem 2rem; }
