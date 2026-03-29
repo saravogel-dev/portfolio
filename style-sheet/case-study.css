@@ -32,7 +32,7 @@ nav { background: var(--primary); position: sticky; top: 0; z-index: 100; }
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2.5rem; }
 
 /* ─── Hero ─── */
-.cs-hero { background: var(--primary); padding: 4rem 2.5rem; }
+.cs-hero { background: var(--primary); padding: 4rem 2.5rem 2.5rem; }
 
 .cs-hero-meta {
     display: flex;
@@ -60,7 +60,7 @@ nav { background: var(--primary); position: sticky; top: 0; z-index: 100; }
     font-size: 1.0625rem;
     color: rgba(242,245,240,0.7);
     line-height: 1.75;
-    max-width: 660px;
+    max-width: 580px;
     margin-bottom: 3rem;
 }
 
