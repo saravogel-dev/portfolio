@@ -12,7 +12,7 @@
     --font-sans: 'DM Sans', system-ui, sans-serif;
     --font-persona: 'Playfair Display', Georgia, serif;
     --radius: 12px;
-    --max-w: 1100px;
+    --max-w: 1200px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
