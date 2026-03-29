@@ -43,7 +43,7 @@ nav { background: var(--primary); position: sticky; top: 0; z-index: 100; }
 .back-link:hover { color: var(--bg); }
 .cs-type { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #74c69d; }
 .cs-title {  font-family: var(--font-serif);
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-size: clamp(2.25rem, 6vw, 5rem);
     font-weight: 300;
     color: var(--bg);
     line-height: 1.1;
