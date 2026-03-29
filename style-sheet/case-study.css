@@ -89,7 +89,7 @@ nav { background: var(--primary); position: sticky; top: 0; z-index: 100; }
 .overview-value { font-size: 0.9375rem; color: var(--text); line-height: 1.5; }
 
 /* ─── Main ─── */
-.cs-main { padding: 5rem 0 0; }
+.cs-main { padding: 3rem 0 0; }
 
 /* ─── Sections ─── */
 .cs-section { margin-bottom: 4.5rem; }
