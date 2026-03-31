@@ -103,7 +103,7 @@ nav {
     letter-spacing: -0.5px;
     color: var(--text);
     margin-bottom: 1.5rem;
-    max-width: 680px;
+    max-width: 690px;
 }
 
 .hero-title em {
@@ -145,7 +145,7 @@ nav {
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3.5rem;
+    gap: 4rem;
     align-items: center;
 }
 
