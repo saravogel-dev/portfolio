@@ -416,7 +416,7 @@ section { padding: 5rem 0; }
 
 /* Visual backgrounds */
 .vis-ai     { background: linear-gradient(135deg, #e8f0ed 0%, #d4e6dc 100%); }
-.vis-sonify { background: linear-gradient(135deg, #f0ede8 0%, #e6dfd4 100%); }
+.vis-resong { background: linear-gradient(135deg, #f0ede8 0%, #e6dfd4 100%); }
 .vis-world  { background: linear-gradient(135deg, #e8ede0 0%, #d4e0c4 100%); }
 .vis-andrew { background: linear-gradient(135deg, #e8edf0 0%, #d4dce6 100%); }
 
