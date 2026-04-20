@@ -240,3 +240,82 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--sage-mid); outl
     .contact-links { flex-direction: column; }
     .footer-inner { flex-direction: column; align-items: flex-start; }
 }
+
+/* ─────────────────────────────────────────
+   CARD COVER SVGs — animated illustrations
+   ───────────────────────────────────────── */
+.card-visual { position: relative; }
+.cover-svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+.project-card.featured .card-visual { position: relative; }
+
+/* ── 01 AI Trust ── */
+.ai-response { transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), opacity 0.35s ease; transform: translateY(12px); opacity: 0.3; }
+.project-card:hover .ai-response { transform: translateY(0); opacity: 1; }
+.typing-dots { opacity: 1; transition: opacity 0.2s ease; }
+.project-card:hover .typing-dots { opacity: 0; }
+.ai-text { opacity: 0; transition: opacity 0.3s ease 0.15s; }
+.project-card:hover .ai-text { opacity: 1; }
+.thought-bubble { transition: opacity 0.4s ease 0.25s, transform 0.4s cubic-bezier(.34,1.56,.64,1) 0.25s; opacity: 0; transform: translateY(6px); }
+.project-card:hover .thought-bubble { opacity: 1; transform: translateY(0); }
+.question-accent { transition: opacity 0.5s ease 0.3s; opacity: 0.04; }
+.project-card:hover .question-accent { opacity: 0.12; }
+
+/* ── 02 Resong ── */
+.rwc-bar { opacity: 0.35; transition: opacity 0.4s ease; }
+.project-card:hover .rwc-bar { opacity: 0; }
+.rwc-staff { opacity: 0; transition: opacity 0.4s ease; }
+.project-card:hover .rwc-staff { opacity: 0.4; }
+.project-card:hover .rwc-staff-1 { transition-delay: 0.15s; }
+.project-card:hover .rwc-staff-2 { transition-delay: 0.19s; }
+.project-card:hover .rwc-staff-3 { transition-delay: 0.23s; }
+.project-card:hover .rwc-staff-4 { transition-delay: 0.27s; }
+.project-card:hover .rwc-staff-5 { transition-delay: 0.31s; }
+.rwc-clef { opacity: 0; transform: translateX(-8px); transition: opacity 0.4s ease 0.18s, transform 0.5s cubic-bezier(.34,1.56,.64,1) 0.18s; }
+.project-card:hover .rwc-clef { opacity: 0.7; transform: translateX(0); }
+.rwc-bar-line { opacity: 0; transition: opacity 0.4s ease 0.25s; }
+.project-card:hover .rwc-bar-line { opacity: 0.25; }
+.project-card:hover .rwc-bar-end { opacity: 0.4; }
+.rwc-note { opacity: 0; transform: translateY(-12px); transition: opacity 0.35s ease, transform 0.5s cubic-bezier(.34,1.56,.64,1); }
+.project-card:hover .rwc-note { opacity: 1; transform: translateY(0); }
+.project-card:hover .rwc-note-1 { transition-delay: 0.25s; }
+.project-card:hover .rwc-note-2 { transition-delay: 0.32s; }
+.project-card:hover .rwc-note-3 { transition-delay: 0.39s; }
+.project-card:hover .rwc-note-4 { transition-delay: 0.46s; }
+.project-card:hover .rwc-note-5 { transition-delay: 0.53s; }
+.project-card:hover .rwc-note-6 { transition-delay: 0.60s; }
+
+/* ── 03 World Music ── */
+.meridian { transition: opacity 0.4s ease; }
+.lat-line  { transition: opacity 0.4s ease; }
+.project-card:hover .meridian { opacity: 0; }
+.project-card:hover .lat-line  { opacity: 0; }
+.groove { opacity: 0; transition: opacity 0.4s ease; }
+.groove-1 { transition-delay: 0.05s; }
+.groove-2 { transition-delay: 0.1s; }
+.groove-3 { transition-delay: 0.15s; }
+.groove-4 { transition-delay: 0.2s; }
+.groove-5 { transition-delay: 0.25s; }
+.groove-6 { transition-delay: 0.3s; }
+.project-card:hover .groove { opacity: 1; }
+.center-dot { opacity: 0; transition: opacity 0.4s ease 0.3s; }
+.project-card:hover .center-dot { opacity: 1; }
+.tonearm { opacity: 0; transition: opacity 0.4s ease 0.3s, transform 0.5s cubic-bezier(.34,1.56,.64,1) 0.3s; transform: rotate(15deg); transform-origin: 89% 21%; }
+.project-card:hover .tonearm { opacity: 1; transform: rotate(0deg); }
+
+/* ── 04 Andrew Vogel ── */
+.vc-pendulum { transform-origin: 120px 50px; transform: rotate(-18deg); transition: transform 1.6s cubic-bezier(.4,0,.6,1); opacity: 0.85; }
+.project-card:hover .vc-pendulum { transform: rotate(18deg); }
+.vc-tick { opacity: 0; transition: opacity 0.35s ease; }
+.project-card:hover .vc-tick { opacity: 0.55; }
+.project-card:hover .vc-tick-1 { transition-delay: 0.18s; }
+.project-card:hover .vc-tick-2 { transition-delay: 0.22s; }
+.project-card:hover .vc-tick-3 { transition-delay: 0.26s; }
+.project-card:hover .vc-tick-4 { transition-delay: 0.30s; }
+.project-card:hover .vc-tick-5 { transition-delay: 0.34s; }
+.project-card:hover .vc-tick-6 { transition-delay: 0.38s; }
+.vc-tick-label { opacity: 0; transition: opacity 0.4s ease 0.45s; }
+.project-card:hover .vc-tick-label { opacity: 0.7; }
+.vc-cap-a { opacity: 0.5; transition: opacity 0.4s ease; }
+.vc-cap-b { opacity: 0; transition: opacity 0.4s ease 0.5s; }
+.project-card:hover .vc-cap-a { opacity: 0; }
+.project-card:hover .vc-cap-b { opacity: 0.55; }
