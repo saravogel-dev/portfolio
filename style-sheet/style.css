@@ -319,3 +319,26 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--sage-mid); outl
 .vc-cap-b { opacity: 0; transition: opacity 0.4s ease 0.5s; }
 .project-card:hover .vc-cap-a { opacity: 0; }
 .project-card:hover .vc-cap-b { opacity: 0.55; }
+
+/* ─── 2×2 equal grid — remove featured full-width override ─── */
+.project-card.featured {
+    grid-column: auto;
+    display: block;
+}
+.project-card.featured .card-visual {
+    aspect-ratio: 16/10;
+    min-height: unset;
+}
+.project-card.featured .card-body {
+    padding: 20px 22px 22px;
+    display: block;
+}
+.project-card.featured .card-title {
+    font-size: 1.1875rem;
+    margin-bottom: 8px;
+}
+.project-card.featured .card-desc {
+    -webkit-line-clamp: 2;
+    font-size: 0.8125rem;
+    margin-bottom: 14px;
+}
