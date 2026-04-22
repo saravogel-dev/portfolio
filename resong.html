@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="resong — UX Research and Design Case Study by Sara Fazeli">
+    <title>resong | Sara Fazeli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-sheet/case-study.css">
+    <link rel="icon" type="image/png" href="favicon_256x256.png">
+    <style>
+        /* Prototype embed */
+        .proto-embed {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px rgba(27,67,50,0.08);
+            margin: 2rem 0;
+        }
+        .proto-embed iframe {
+            width: 100%;
+            height: 680px;
+            border: none;
+            display: block;
+        }
+        .proto-label {
+            background: var(--accent);
+            padding: 10px 16px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .proto-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--action);
+            flex-shrink: 0;
+        }
+
+        /* Coding table */
+        .coding-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+        }
+        .coding-table th {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 0.6875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .coding-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--text);
+            opacity: 0.85;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        .coding-table tr:last-child td { border-bottom: none; }
+        .coding-table tr:nth-child(even) td { background: var(--accent); opacity: 1; }
+        .code-pill {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--bg);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* User type cards */
+        .user-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 1.75rem 0;
+        }
+        .user-type-card {
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .user-type-label {
+            font-size: 0.6875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--action);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .user-type-name {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+        .user-type-quote {
+            font-size: 0.8125rem;
+            font-style: italic;
+            color: var(--text);
+            opacity: 0.75;
+            line-height: 1.7;
+            border-left: 2px solid var(--border);
+            padding-left: 0.875rem;
+            margin-bottom: 0.875rem;
+        }
+        .user-type-desc {
+            font-size: 0.8125rem;
+            color: var(--text);
+            opacity: 0.7;
+            line-height: 1.65;
+        }
+
+        /* Finding to decision */
+        .design-decision {
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .decision-finding {
+            font-size: 0.6875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--action);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .decision-title {
+            font-family: var(--font-serif);
+            font-size: 1.0625rem;
+            font-weight: 400;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 0.875rem;
+        }
+        .decision-body {
+            font-size: 0.9375rem;
+            color: var(--text);
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        /* Stat highlight */
+        .stat-inline {
+            background: var(--accent);
+            border-left: 3px solid var(--action);
+            border-radius: 0 8px 8px 0;
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 760px) {
+            .user-types { grid-template-columns: 1fr; }
+            .proto-embed iframe { height: 520px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">Sara Fazeli</a>
+            <ul class="nav-links">
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="cs-hero">
+        <div class="container">
+            <div class="cs-hero-meta">
+                <a href="index.html" class="back-link">← Back to work</a>
+                <span class="cs-type">GenAI · Music · UX Research</span>
+            </div>
+            <h1 class="cs-title">resong</h1>
+            <p class="cs-subtitle">A prompt scaffolding tool that helps novice users translate auditory imagination into generative AI music prompts, built from original qualitative research in a Sound and Environment course.</p>
+            <div class="cs-stats">
+                <div class="stat">
+                    <span class="stat-num">21</span>
+                    <span class="stat-label">Student groups</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">5</span>
+                    <span class="stat-label">Coding dimensions</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">User types</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">Design screens</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overview strip -->
+    <div class="cs-overview">
+        <div class="container">
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <span class="overview-label">Role</span>
+                    <span class="overview-value">UX Researcher and Designer (solo)</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Methods</span>
+                    <span class="overview-value">Qualitative content analysis, coding schema development, interaction design</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Tools</span>
+                    <span class="overview-value">Figma, HTML/CSS, Suno AI</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Context</span>
+                    <span class="overview-value">Sound and Environment, University of Florida, Fall 2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="cs-main">
+        <div class="container">
+
+            <!-- Overview -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">01 — Overview</div>
+                    <div class="cs-section-content">
+                        <p>When students in my undergraduate Sound and Environment course were asked to generate music using AI, most of them knew exactly what they wanted to hear. What they couldn't do was say it.</p>
+                        <p>resong is a prompt scaffolding tool that bridges that gap, helping novice users move from vague auditory intuition to a structured, effective prompt they can paste directly into Suno AI.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Problem -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">02 — The problem</div>
+                    <div class="cs-section-content">
+                        <h2 class="cs-heading">Describing sound is harder than it looks.</h2>
+                        <p>Generative AI music tools like Suno require users to describe their desired music in clear and specific language. Unlike describing an image, describing music requires vocabulary that spans genre, texture, mood, instrumentation, and acoustic quality — domains that most people have never been asked to articulate explicitly.</p>
+                        <p>In my Sound and Environment course, I assigned students a creative project: use a field recording as the emotional seed for an AI-generated piece of music. The result revealed a sharp gap between what students <em>felt</em> and what they could <em>write</em>.</p>
+                        <div class="callout">
+                            <span class="callout-label">The research question</span>
+                            <p>What patterns emerge when novice users attempt to describe music for AI generation? And what does that reveal about where they need support?</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Research -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">03 — Research</div>
+                    <div class="cs-section-content">
+                        <p>21 groups of undergraduate students submitted written prompts alongside their AI-generated tracks. Students came from a range of backgrounds. A few had formal music training, and none had prior experience with AI music generation. Their original recordings were supposed to be recordings of birdsong captured on a phone.</p>
+                        <p>This context gave me a unique privilege: as the course instructor and researcher, I had deep familiarity with the assignments, the recordings, and the students' expressed intentions. I could compare what they <em>meant</em> with what they <em>wrote</em>.</p>
+
+                        <h3 class="cs-heading" style="font-size:1.125rem;margin-top:1.75rem;">Coding schema</h3>
+                        <p>I developed a five-dimension coding schema to systematically analyze the 21 submissions. Each dimension represents a distinct layer of musical description:</p>
+
+                        <table class="coding-table">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Dimension</th>
+                                    <th>Definition</th>
+                                    <th>Example from data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="code-pill">GEN</span></td>
+                                    <td>Genre</td>
+                                    <td>Stylistic or historical category</td>
+                                    <td><em>"jazz," "lo-fi," "mariachi," "J-pop"</em></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="code-pill">SON</span></td>
+                                    <td>Sound quality</td>
+                                    <td>Timbral and textural descriptors</td>
+                                    <td><em>"high-pitched," "trilling," "staccato," "echoing"</em></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="code-pill">EMO</span></td>
+                                    <td>Emotion / Mood</td>
+                                    <td>Affective or expressive qualities</td>
+                                    <td><em>"calming," "groovy," "haunting," "upbeat"</em></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="code-pill">BIO</span></td>
+                                    <td>Bioacoustic / Sound source</td>
+                                    <td>References to the bird, habitat, or ecological context</td>
+                                    <td><em>"bird call," "sharp rasps," "cawing," "forest"</em></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="code-pill">INS</span></td>
+                                    <td>Instrument</td>
+                                    <td>Specific instrument references</td>
+                                    <td><em>"piano," "trumpet," "acoustic guitar," "cello"</em></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Each submission was coded for the presence, absence, and relative weight of each dimension.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Findings -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">04 — Findings</div>
+                    <div class="cs-section-content">
+                        <p>The clearest pattern in the data is that students rarely addressed all five dimensions. The typical prompt drew heavily from one or two dimensions while leaving others entirely absent.</p>
+
+                        <div class="stat-inline">Average prompt length: 156 characters against a 120-character limit — 131% over on average. Students were trying to say more than the interface allowed.</div>
+
+                        <p><strong>EMO dominated.</strong> Nearly every student led with emotional or atmospheric description. Prompts like <em>"calm, melodic smooth rhythm similar to the beat of a children's lullaby, slow tempo, and steady beat"</em> (Group 7) and <em>"relaxing fall music"</em> (Group 15) convey a feeling but give the AI little sonic specificity to work with.</p>
+
+                        <p><strong>GEN was the most common structural anchor.</strong> Students frequently named a genre to organize their prompt: jazz, lo-fi, mariachi, J-pop, R&amp;B trap. Sometimes with striking specificity: <em>"J-pop, like YOASOBI's style, with some electric keyboard and guitar in the background, no jazz or heavy metal/heavy rock"</em> (Group 5). But genre naming alone, without sonic or emotional layering, produced generic results.</p>
+
+                        <p><strong>BIO appeared frequently but remained underdeveloped.</strong> Some students referenced their recording by copying Cornell Lab language almost verbatim — <em>"high-pitched metallic chips and series of loud, sweet whistles, rock piano"</em> (Group 10) — without translating it into musical direction.</p>
+
+                        <p><strong>SON and INS were most commonly absent.</strong> Timbral descriptors and instrument specifications, the dimensions that most directly shape an AI's sonic output, appeared in fewer than half of submissions.</p>
+
+                        <h3 class="cs-heading" style="font-size:1.125rem;margin-top:2rem;">Three distinct prompt strategies emerged</h3>
+
+                        <div class="user-types">
+                            <div class="user-type-card">
+                                <div class="user-type-label">Type 01</div>
+                                <div class="user-type-name">The Feeler</div>
+                                <div class="user-type-quote">"Make an upbeat song that sounds like the feeling of walking through a park on a sunny day and incorporate bird calls."</div>
+                                <div class="user-type-desc">Prompts weighted entirely toward EMO. Strong affective clarity, weak technical specificity. The emotional intention is clear; the sonic path to get there is not.</div>
+                            </div>
+                            <div class="user-type-card">
+                                <div class="user-type-label">Type 02</div>
+                                <div class="user-type-name">The Describer</div>
+                                <div class="user-type-quote">"Mellow bird call song with high keys on the piano, use the bird call recording, add an orchestra and some Chinese classical."</div>
+                                <div class="user-type-desc">Prompts weighted toward BIO and SON. Acoustically grounded, but emotionally and generically underspecified.</div>
+                            </div>
+                            <div class="user-type-card">
+                                <div class="user-type-label">Type 03</div>
+                                <div class="user-type-name">The Maximizer</div>
+                                <div class="user-type-quote">"The musical genre is relaxed modern jazz with some synthetic electronic sounds. One instrument sounds like a trumpet. Then 15 seconds in, a synthetic techno sound arises..."</div>
+                                <div class="user-type-desc">Prompts that attempted to cover everything at once. Group 2 wrote 626 characters — 522% of the limit. The impulse was right; the execution needed scaffolding.</div>
+                            </div>
+                        </div>
+
+                        <p>None of the three was wrong, but all three were incomplete in predictable, designable ways.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design Response -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">05 — Design response</div>
+                    <div class="cs-section-content">
+                        <p>The research findings mapped directly to design decisions in resong.</p>
+
+                        <div class="design-decision">
+                            <div class="decision-finding">Finding 01</div>
+                            <div class="decision-title">Users default to emotion because it's the most natural entry point</div>
+                            <div class="decision-body">Let them start there. The open text field at the top of resong is intentionally unconstrained. Users can write anything, in their own words. The tool meets them where they are rather than forcing a structured form from the start.</div>
+                        </div>
+
+                        <div class="design-decision">
+                            <div class="decision-finding">Finding 02</div>
+                            <div class="decision-title">Users don't know what dimensions they're missing</div>
+                            <div class="decision-body">The Prompt Coverage bar makes the gap visible. As users fill in dimensions, the coverage bar fills proportionally and changes color per dimension. The counter (2 / 5 dimensions) creates a gentle, non-judgmental signal that there's more to explore, without blocking progress.</div>
+                        </div>
+
+                        <div class="design-decision">
+                            <div class="decision-finding">Finding 03</div>
+                            <div class="decision-title">Users lack vocabulary for SON and INS in particular</div>
+                            <div class="decision-body">Each accordion dimension opens into a chip selector with pre-populated vocabulary drawn from the research data — the actual words students used successfully, plus common alternatives. Users can select chips or type their own. This removes the blank-page problem for the dimensions they find hardest.</div>
+                        </div>
+
+                        <div class="design-decision">
+                            <div class="decision-finding">Finding 04</div>
+                            <div class="decision-title">The recording itself is underused as a creative resource</div>
+                            <div class="decision-body">The "About this sound" panel surfaces contextual information about the recording, sourced from Cornell Lab for bird calls, giving users language they might not have had. A recording of a Northern Cardinal shouldn't just be "a bird." It should open into <em>"high-pitched metallic chips and series of loud, sweet whistles"</em> — Cornell Lab's own description, which doubles as usable prompt vocabulary.</div>
+                        </div>
+
+                        <div class="design-decision">
+                            <div class="decision-finding">Finding 05</div>
+                            <div class="decision-title">The Maximizer needs a channel, not a constraint</div>
+                            <div class="decision-body">The tip box between the link field and the generate button is contextually aware. It identifies the dimension with the least coverage and nudges the user toward it: <em>"Try adding a genre to give the AI a stronger musical direction."</em> Rather than cutting students off, resong redirects their energy toward the dimensions they haven't yet addressed.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design screens label -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">06 — The design</div>
+                    <div class="cs-section-content">
+                        <p>The prototype below is interactive — navigate through all three screens to follow the full user flow from empty state to generated prompt.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Prototype embed — full width -->
+        <div class="screens-section">
+            <div class="container">
+
+                <!-- Screen 01 -->
+                <div class="screen-item">
+                    <div class="screen-meta">
+                        <span class="screen-num">Screen 01</span>
+                        <span class="screen-title">Empty state</span>
+                        <p class="screen-desc">The user arrives with their recording. The interface is intentionally quiet: a large upload zone, a prompt field with a concrete example placeholder, and the five accordion dimensions visible but collapsed. Nothing is required yet. The message is: start anywhere.</p>
+                    </div>
+                    <div class="screen-image">
+                        <img src="images/resong-01.png" alt="resong empty state screen showing upload zone and five collapsed accordion dimensions" onerror="this.style.display='none'" />
+                    </div>
+                </div>
+
+                <div class="screen-item reverse">
+                    <div class="screen-meta">
+                        <span class="screen-num">Screen 02</span>
+                        <span class="screen-title">In progress</span>
+                        <p class="screen-desc">Once a recording is uploaded, the left panel contextualizes it with a waveform card and an "About this sound" box sourced from Cornell Lab. On the right, as the user writes and selects chips, the coverage bar responds in real time. The generate button remains disabled — not as a gate, but as an invitation to keep going.</p>
+                    </div>
+                    <div class="screen-image">
+                        <img src="images/resong-02.png" alt="resong in-progress screen showing recording card, prompt input, coverage bar and open Mood accordion" onerror="this.style.display='none'" />
+                    </div>
+                </div>
+
+                <div class="screen-item">
+                    <div class="screen-meta">
+                        <span class="screen-num">Screen 03</span>
+                        <span class="screen-title">Prompt generated</span>
+                        <p class="screen-desc">The generated prompt synthesizes the user's free-text description with their chip selections into a structured, Suno-ready string. Dimension tags show which part of the prompt came from which dimension, making the scaffolding visible and educational. The user can copy the prompt, refine further, or open Suno AI directly.</p>
+                    </div>
+                    <div class="screen-image">
+                        <img src="images/resong-03.png" alt="resong generated prompt screen showing full 5-dimension coverage and copy prompt button" onerror="this.style.display='none'" />
+                    </div>
+                </div>
+
+                <!-- Interactive prototype -->
+                <div style="margin-top: 3rem;">
+                    <span class="cs-section-label-inline">Interactive prototype</span>
+                    <div class="proto-embed">
+                        <iframe
+                            src="resong-prototype.html"
+                            title="resong interactive prototype — 3 screen clickable flow"
+                            loading="lazy"
+                            allowfullscreen
+                        ></iframe>
+                        <div class="proto-label">
+                            <div class="proto-dot"></div>
+                            Interactive prototype — click through all three screens
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container">
+
+            <!-- Reflection -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">07 — Reflection</div>
+                    <div class="cs-section-content">
+                        <p>resong sits at the intersection of qualitative research and interaction design in a way that is specific to my background. The five-dimension schema came directly from ethnomusicological analysis that used to study music cross-culturally and was applied to understanding how novice users describe music to machines. The design then responded to that analysis with targeted scaffolding rather than generic UX patterns.</p>
+
+                        <p>This is what differentiates resong from a typical prompt helper: it's grounded in real data about real users, and every design decision traces back to a specific finding.</p>
+
+                        <div class="callout">
+                            <span class="callout-label">What I would do next</span>
+                            <p>With more time and participants, I would test whether the scaffolding actually improves prompt quality, comparing AI outputs from scaffolded vs. unscaffolded prompts, rated by listeners blind to the condition. I would also explore adaptive chip suggestions based on the recording content, using audio analysis to surface vocabulary automatically. And I would design for the Feeler, Describer, and Maximizer explicitly, offering different entry paths for each user type rather than a single linear flow.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Next project -->
+    <div class="next-project">
+        <div class="container">
+            <span class="section-label">Next project</span>
+            <a href="ai-trust-study.html" class="next-link">AI Trust in Culturally Complex Learning →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-name">Sara Fazeli</span>
+                <span class="footer-copy">© 2026 · Built with care and accessibility in mind.</span>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+    // Back to top
+    const btt = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        btt.classList.toggle('show', window.scrollY > 400);
+    });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Fade up
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.cs-section, .design-decision, .screen-item, .user-type-card').forEach(el => {
+        el.classList.add('fade-up');
+        observer.observe(el);
+    });
+    </script>
+</body>
+</html>
