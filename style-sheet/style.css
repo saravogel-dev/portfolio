@@ -175,16 +175,93 @@ section { padding: 5rem 0; }
 /* ─────────────────────────────────────────
    CONTACT
    ───────────────────────────────────────── */
-.contact { background: var(--sage); }
-.contact-inner { max-width: 640px; }
-.contact .section-label { color: var(--sage-pale); }
-.contact-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(2rem, 4vw, 3rem); color: var(--cream); line-height: 1.1; margin-bottom: 1rem; }
-.contact-sub { font-size: 0.9375rem; color: rgba(242,245,240,0.7); line-height: 1.75; margin-bottom: 2rem; }
-.contact-links { display: flex; gap: 14px; flex-wrap: wrap; }
-.contact .btn-primary { background: var(--cream); color: var(--sage); }
-.contact .btn-primary:hover { opacity: 0.9; }
-.contact .btn-secondary { border-color: rgba(242,245,240,0.3); color: var(--cream); }
-.contact .btn-secondary:hover { border-color: var(--cream); }
+.contact--note {
+    background: var(--sage);
+    padding: 6rem 0;
+}
+
+.note-card {
+    max-width: 680px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(242, 245, 240, 0.15);
+    border-radius: 8px;
+    padding: 2.5rem;
+}
+
+.note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(242, 245, 240, 0.12);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: rgba(242, 245, 240, 0.45);
+}
+
+.note-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.note-status .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #74c69d;
+    display: inline-block;
+}
+
+.note-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(242, 245, 240, 0.9);
+    margin-bottom: 2rem;
+}
+
+.note-sign {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.note-signature {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(242, 245, 240, 0.4);
+}
+
+.note-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: flex-end;
+}
+
+.note-actions a {
+    font-size: 0.85rem;
+    color: #74c69d;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.note-actions a:hover {
+    color: #F2F5F0;
+}
+
+@media (max-width: 640px) {
+    .note-card { padding: 1.75rem; }
+    .note-sign { flex-direction: column; align-items: flex-start; }
+    .note-actions { align-items: flex-start; }
+}
 
 /* ─────────────────────────────────────────
    FOOTER
