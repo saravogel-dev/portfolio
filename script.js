@@ -37,3 +37,13 @@ document.querySelectorAll('.project-card, .about-grid, .contact-inner').forEach(
     el.classList.add('fade-up');
     observer.observe(el);
 });
+
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('touchstart', () => {
+        card.classList.add('is-touched');
+    }, { passive: true });
+
+    card.addEventListener('touchend', () => {
+        setTimeout(() => card.classList.remove('is-touched'), 300);
+    }, { passive: true });
+});

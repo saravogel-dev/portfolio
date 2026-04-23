@@ -420,3 +420,56 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--sage-mid); outl
     font-size: 0.8125rem;
     margin-bottom: 14px;
 }
+
+/* ─────────────────────────────────────────
+   TOUCH STATES (mobile — mirrors all :hover)
+   ───────────────────────────────────────── */
+@media (hover: none) {
+    .project-card.is-touched { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(27,67,50,0.13); }
+
+    /* 01 AI Trust */
+    .project-card.is-touched .ai-response { transform: translateY(0); opacity: 1; }
+    .project-card.is-touched .typing-dots { opacity: 0; }
+    .project-card.is-touched .ai-text { opacity: 1; }
+    .project-card.is-touched .thought-bubble { opacity: 1; transform: translateY(0); }
+    .project-card.is-touched .question-accent { opacity: 0.12; }
+
+    /* 02 Resong */
+    .project-card.is-touched .rwc-bar { opacity: 0; }
+    .project-card.is-touched .rwc-staff { opacity: 0.4; }
+    .project-card.is-touched .rwc-staff-1 { transition-delay: 0.15s; }
+    .project-card.is-touched .rwc-staff-2 { transition-delay: 0.19s; }
+    .project-card.is-touched .rwc-staff-3 { transition-delay: 0.23s; }
+    .project-card.is-touched .rwc-staff-4 { transition-delay: 0.27s; }
+    .project-card.is-touched .rwc-staff-5 { transition-delay: 0.31s; }
+    .project-card.is-touched .rwc-clef { opacity: 0.7; transform: translateX(0); }
+    .project-card.is-touched .rwc-bar-line { opacity: 0.25; }
+    .project-card.is-touched .rwc-bar-end { opacity: 0.4; }
+    .project-card.is-touched .rwc-note { opacity: 1; transform: translateY(0); }
+    .project-card.is-touched .rwc-note-1 { transition-delay: 0.25s; }
+    .project-card.is-touched .rwc-note-2 { transition-delay: 0.32s; }
+    .project-card.is-touched .rwc-note-3 { transition-delay: 0.39s; }
+    .project-card.is-touched .rwc-note-4 { transition-delay: 0.46s; }
+    .project-card.is-touched .rwc-note-5 { transition-delay: 0.53s; }
+    .project-card.is-touched .rwc-note-6 { transition-delay: 0.60s; }
+
+    /* 03 World Music */
+    .project-card.is-touched .meridian { opacity: 0; }
+    .project-card.is-touched .lat-line { opacity: 0; }
+    .project-card.is-touched .groove { opacity: 1; }
+    .project-card.is-touched .center-dot { opacity: 1; }
+    .project-card.is-touched .tonearm { opacity: 1; transform: rotate(0deg); }
+
+    /* 04 Andrew Vogel */
+    .project-card.is-touched .vc-pendulum { transform: rotate(18deg); }
+    .project-card.is-touched .vc-tick { opacity: 0.55; }
+    .project-card.is-touched .vc-tick-1 { transition-delay: 0.18s; }
+    .project-card.is-touched .vc-tick-2 { transition-delay: 0.22s; }
+    .project-card.is-touched .vc-tick-3 { transition-delay: 0.26s; }
+    .project-card.is-touched .vc-tick-4 { transition-delay: 0.30s; }
+    .project-card.is-touched .vc-tick-5 { transition-delay: 0.34s; }
+    .project-card.is-touched .vc-tick-6 { transition-delay: 0.38s; }
+    .project-card.is-touched .vc-tick-label { opacity: 0.7; }
+    .project-card.is-touched .vc-cap-a { opacity: 0; }
+    .project-card.is-touched .vc-cap-b { opacity: 0.55; }
+}
