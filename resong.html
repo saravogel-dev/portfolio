@@ -172,10 +172,7 @@
             font-weight: 500;
         }
 
-        @media (max-width: 760px) {
-            .user-types { grid-template-columns: 1fr; }
-            .proto-embed iframe { height: 520px; }
-        }
+        /* Screen list */
         .screen-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -190,6 +187,11 @@
         }
         .screen-list-item .screen-num {
             display: block;
+            font-size: 0.6875rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--action);
+            font-weight: 500;
             margin-bottom: 0.4rem;
         }
         .screen-list-item .screen-title {
@@ -206,8 +208,11 @@
             opacity: 0.75;
             line-height: 1.75;
         }
+
         @media (max-width: 760px) {
+            .user-types { grid-template-columns: 1fr; }
             .screen-list { grid-template-columns: 1fr; }
+            .proto-embed iframe { height: 520px; }
         }
     </style>
 </head>
@@ -464,30 +469,29 @@
             </section>
 
         </div>
+        <!-- /container -->
 
-        <!-- Prototype embed — full width -->
+        <!-- Screens + prototype — full width section -->
         <div class="screens-section">
             <div class="container">
 
-                <!-- Screen 01 -->
-                <div class="screen-item">
-                    <div class="screen-list">
-    <div class="screen-list-item">
-        <span class="screen-num">Screen 01</span>
-        <span class="screen-title">Empty state</span>
-        <p class="screen-desc">The user arrives with their recording. The interface is intentionally quiet: a large upload zone, a prompt field with a concrete example placeholder, and the five accordion dimensions visible but collapsed. Nothing is required yet. The message is: start anywhere.</p>
-    </div>
-    <div class="screen-list-item">
-        <span class="screen-num">Screen 02</span>
-        <span class="screen-title">In progress</span>
-        <p class="screen-desc">Once a recording is uploaded, the left panel contextualizes it with a waveform card and an "About this sound" box sourced from Cornell Lab. On the right, as the user writes and selects chips, the coverage bar responds in real time. The generate button remains disabled — not as a gate, but as an invitation to keep going.</p>
-    </div>
-    <div class="screen-list-item">
-        <span class="screen-num">Screen 03</span>
-        <span class="screen-title">Prompt generated</span>
-        <p class="screen-desc">The generated prompt synthesizes the user's free-text description with their chip selections into a structured, Suno-ready string. Dimension tags show which part of the prompt came from which dimension, making the scaffolding visible and educational. The user can copy the prompt, refine further, or open Suno AI directly.</p>
-    </div>
-</div>
+                <!-- Screen descriptions -->
+                <div class="screen-list">
+                    <div class="screen-list-item">
+                        <span class="screen-num">Screen 01</span>
+                        <span class="screen-title">Empty state</span>
+                        <p class="screen-desc">The user arrives with their recording. The interface is intentionally quiet: a large upload zone, a prompt field with a concrete example placeholder, and the five accordion dimensions visible but collapsed. Nothing is required yet. The message is: start anywhere.</p>
+                    </div>
+                    <div class="screen-list-item">
+                        <span class="screen-num">Screen 02</span>
+                        <span class="screen-title">In progress</span>
+                        <p class="screen-desc">Once a recording is uploaded, the left panel contextualizes it with a waveform card and an "About this sound" box sourced from Cornell Lab. On the right, as the user writes and selects chips, the coverage bar responds in real time. The generate button remains disabled — not as a gate, but as an invitation to keep going.</p>
+                    </div>
+                    <div class="screen-list-item">
+                        <span class="screen-num">Screen 03</span>
+                        <span class="screen-title">Prompt generated</span>
+                        <p class="screen-desc">The generated prompt synthesizes the user's free-text description with their chip selections into a structured, Suno-ready string. Dimension tags show which part of the prompt came from which dimension, making the scaffolding visible and educational. The user can copy the prompt, refine further, or open Suno AI directly.</p>
+                    </div>
                 </div>
 
                 <!-- Interactive prototype -->
@@ -508,7 +512,9 @@
                 </div>
 
             </div>
+            <!-- /container -->
         </div>
+        <!-- /screens-section -->
 
         <div class="container">
 
@@ -530,6 +536,7 @@
             </section>
 
         </div>
+        <!-- /container -->
     </main>
 
     <!-- Next project -->
