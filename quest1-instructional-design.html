@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sounding the Alarm — Instructional Design Case Study by Sara Fazeli">
+    <title>Sounding the Alarm | Instructional Design | Sara Fazeli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-sheet/case-study.css">
+    <link rel="icon" type="image/png" href="favicon_256x256.png">
+    <style>
+        /* Sequence flow (practice -> apply) */
+        .flow-sequence {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 1.25rem;
+            margin: 1.75rem 0;
+        }
+        .flow-card {
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .flow-card .flow-label {
+            font-size: 0.6875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--action);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .flow-card .flow-title {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+        }
+        .flow-card .flow-desc {
+            font-size: 0.875rem;
+            color: var(--text);
+            opacity: 0.75;
+            line-height: 1.65;
+        }
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--border);
+            text-align: center;
+        }
+
+        /* OAA triplet */
+        .oaa-set {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0 2rem;
+        }
+        .oaa-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1.25rem;
+            padding: 1.1rem 0;
+            border-bottom: 0.5px solid var(--border);
+        }
+        .oaa-row:last-child { border-bottom: none; }
+        .oaa-key {
+            font-size: 0.6875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--action);
+            font-weight: 500;
+            padding-top: 0.15rem;
+        }
+        .oaa-val {
+            font-size: 0.9375rem;
+            color: var(--text);
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* Modality chips */
+        .modality-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .modality-card {
+            background: var(--accent);
+            border-radius: 10px;
+            padding: 1.1rem 1rem;
+        }
+        .modality-card .mod-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        .modality-card .mod-desc {
+            font-size: 0.75rem;
+            color: var(--text);
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+
+        /* Workflow steps */
+        .step-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+            counter-reset: step;
+        }
+        .step-flow .step-item {
+            flex: 1 1 160px;
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            position: relative;
+        }
+        .step-flow .step-item .step-num {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--action);
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+        .step-flow .step-item .step-text {
+            font-size: 0.8125rem;
+            color: var(--text);
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 760px) {
+            .flow-sequence { grid-template-columns: 1fr; }
+            .flow-arrow { transform: rotate(90deg); }
+            .oaa-row { grid-template-columns: 1fr; gap: 0.4rem; }
+            .modality-grid { grid-template-columns: repeat(2, 1fr); }
+            .step-flow .step-item { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">Sara Fazeli</a>
+            <ul class="nav-links">
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="cs-hero">
+        <div class="container">
+            <div class="cs-hero-meta">
+                <a href="index.html" class="back-link">← Back to work</a>
+                <span class="cs-type">Instructional Design · Higher Ed · Curriculum</span>
+            </div>
+            <h1 class="cs-title">Sounding the Alarm</h1>
+            <p class="cs-subtitle">Designing a semester of scaffolded, learner-centered instruction for a Gen-Ed humanities course — from objective-driven breakout activities to a data-informed learning tool built in response to a real classroom gap.</p>
+            <div class="cs-stats">
+                <div class="stat">
+                    <span class="stat-num">15</span>
+                    <span class="stat-label">Week semester designed for</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">Signature activities built</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">4</span>
+                    <span class="stat-label">Submission modalities designed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">1</span>
+                    <span class="stat-label">Tool designed from classroom data</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overview strip -->
+    <div class="cs-overview">
+        <div class="container">
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <span class="overview-label">Role</span>
+                    <span class="overview-value">Teaching Assistant &amp; Breakout Section Designer</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Methods</span>
+                    <span class="overview-value">Backward design, scaffolded sequencing, multi-modal assessment design, iterative evaluation</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Tools</span>
+                    <span class="overview-value">Canvas LMS, Merlin Bird ID, Suno AI, HTML/CSS</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Context</span>
+                    <span class="overview-value">IDS 2935 · Quest 1 Gen-Ed, University of Florida, Fall 2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="cs-main">
+        <div class="container">
+
+            <!-- Overview -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">01 — The course</div>
+                    <div class="cs-section-content">
+                        <p><em>Sounding the Alarm: Music and Social Engagement with the Environment</em> is a Quest 1 Gen-Ed humanities course exploring the essential question, "Who are we in relation to the natural world?" It uses listening as an ethical practice to introduce students to ecomusicology — the study of music's relationship to the environment.</p>
+                        <p>As Teaching Assistant, I was responsible for designing and leading weekly breakout-section activities under primary instructor Dr. Laura Dallman — translating each week's lecture themes into hands-on, learner-centered experiences, and building the assessments that measured them.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design framework -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">02 — My design framework</div>
+                    <div class="cs-section-content">
+                        <h2 class="cs-heading">Objective → Activity → Assessment</h2>
+                        <p>For every breakout section I designed, I worked backward from a learning objective, built a hands-on activity to practice it, then chose an assessment method matched to the activity's purpose — complete/incomplete for skill-building rehearsal, rubric-based evaluation for major deliverables.</p>
+                        <div class="callout">
+                            <span class="callout-label">Design principle</span>
+                            <p>Practice, then apply. Where possible, I sequenced a low-stakes group activity before an independent, graded assignment — modeling a skill together before asking students to demonstrate it alone.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit: Soundwalks -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">03 — Unit: Soundscapes &amp; Soundwalks</div>
+                    <div class="cs-section-content">
+                        <p>Weeks 5–6 introduced students to "deep listening" and soundwalk theory (Westerkamp, Carras), building toward the course's largest experiential assignment — the Nature Walk. I designed two linked activities to scaffold that outcome.</p>
+
+                        <h3 class="cs-heading" style="font-size:1.125rem;margin-top:1.75rem;">Activity 1 — Guided practice soundwalk (Sept 26)</h3>
+                        <div class="oaa-set">
+                            <div class="oaa-row">
+                                <div class="oaa-key">Objective</div>
+                                <div class="oaa-val">Give students hands-on practice with focused, intentional listening outdoors before attempting the graded Nature Walk independently.</div>
+                            </div>
+                            <div class="oaa-row">
+                                <div class="oaa-key">Activity</div>
+                                <div class="oaa-val">Small groups walked to different parts of campus to engage in sustained listening and observation, with the TA present to model the practice.</div>
+                            </div>
+                            <div class="oaa-row">
+                                <div class="oaa-key">Assessment</div>
+                                <div class="oaa-val">Complete/incomplete participation grade — appropriate for a rehearsal activity focused on skill-building, not output quality.</div>
+                            </div>
+                        </div>
+
+                        <h3 class="cs-heading" style="font-size:1.125rem;">Activity 2 — The Nature Walk assignment (17% of grade)</h3>
+                        <p>Students take an independent nature walk or extended observation, then reflect on the sounds they experienced. I designed this assignment with built-in modality choice and quality scaffolding rather than a single rigid format:</p>
+
+                        <div class="modality-grid">
+                            <div class="modality-card">
+                                <div class="mod-name">Written Paper</div>
+                                <div class="mod-desc">500+ words — for strong writers</div>
+                            </div>
+                            <div class="modality-card">
+                                <div class="mod-name">Video Recording</div>
+                                <div class="mod-desc">5+ min — for strong speakers</div>
+                            </div>
+                            <div class="modality-card">
+                                <div class="mod-name">Audio Recording</div>
+                                <div class="mod-desc">5+ min — speaking, no visual</div>
+                            </div>
+                            <div class="modality-card">
+                                <div class="mod-name">Narrated Slides</div>
+                                <div class="mod-desc">5+ min — visuals support speaking</div>
+                            </div>
+                        </div>
+
+                        <p>Every format is evaluated against the same criteria — primarily the use of descriptive language to convey the listening experience, not just completion. Before the walk, students receive a prep resource and explicit style guidance (sentence variety, vocabulary range, first- vs. third-person voice), so quality expectations are never left implicit.</p>
+
+                        <div class="flow-sequence">
+                            <div class="flow-card">
+                                <div class="flow-label">Step 1</div>
+                                <div class="flow-title">Group practice</div>
+                                <div class="flow-desc">Low-stakes campus soundwalk, participation-graded, TA-modeled.</div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-card">
+                                <div class="flow-label">Step 2</div>
+                                <div class="flow-title">Independent application</div>
+                                <div class="flow-desc">Multi-modal Nature Walk assignment, rubric-assessed.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit: Inter-species -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">04 — Unit: Inter-Species Music Studies</div>
+                    <div class="cs-section-content">
+                        <h2 class="cs-heading">Bird Songs, Calls &amp; Composition</h2>
+                        <p>Week 12 paired readings on birdsong and bioacoustics with a hands-on breakout activity: groups recorded a bird call with Merlin Bird ID, then used AI music generation (Suno) to extend it — requiring careful, deliberate prompt language to shape the result within a 120-character limit.</p>
+
+                        <div class="step-flow">
+                            <div class="step-item"><span class="step-num">1</span><span class="step-text">Record a bird call (Merlin Bird ID)</span></div>
+                            <div class="step-item"><span class="step-num">2</span><span class="step-text">Upload &amp; extend (Suno, instrumental)</span></div>
+                            <div class="step-item"><span class="step-num">3</span><span class="step-text">Write a style prompt (120-char limit)</span></div>
+                            <div class="step-item"><span class="step-num">4</span><span class="step-text">Iterate &amp; select the best result</span></div>
+                            <div class="step-item"><span class="step-num">5</span><span class="step-text">Submit &amp; document the exact prompt used</span></div>
+                        </div>
+
+                        <div class="callout">
+                            <span class="callout-label">Why this design choice mattered</span>
+                            <p>Requiring the exact prompt text as part of the submission built in reflection: students had to notice how their word choice shaped the machine-generated output, not just produce a track. That single design decision is also what made the activity usable as research data later on.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Evaluation & improvement -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">05 — Evaluation &amp; improvement</div>
+                    <div class="cs-section-content">
+                        <p>Watching groups work through the bird song activity in real time, a pattern emerged: students had clear creative intent but struggled to translate it into effective, specific prompt language. Rather than leave that as an anecdotal impression, I treated it as a design question — analyzing all 21 group submissions against a five-dimension coding schema to find exactly where the language broke down.</p>
+                        <p>That analysis directly informed <strong>resong</strong>, a prompt-scaffolding tool I designed and built to close the gap — grounded in real student data rather than assumption.</p>
+                        <div class="callout">
+                            <span class="callout-label">Full research &amp; design case study</span>
+                            <p>The complete data analysis, three user archetypes that emerged from the coding, and the finding-by-finding design response are documented in the resong case study. <a href="resong.html" style="color: var(--primary); text-decoration: underline;">View the resong case study →</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reflection -->
+            <section class="cs-section">
+                <div class="cs-section-inner">
+                    <div class="cs-section-label">06 — Reflection</div>
+                    <div class="cs-section-content">
+                        <p>Designing this course taught me that good instructional design is mostly a sequencing problem: deciding what students should practice together before they're asked to do it alone, and building enough choice into an assignment that format never gets in the way of demonstrating real understanding.</p>
+                        <p>It also taught me that evaluation shouldn't stop at "did the activity work" — the bird song assignment worked exactly as designed, and that success is what surfaced a more specific, addressable gap. Treating that gap as data rather than a shrug is what turned one classroom activity into a second, evidence-based design project.</p>
+                        <div class="callout">
+                            <span class="callout-label">What I'd apply next</span>
+                            <p>In a training or workplace-learning context, I'd bring the same instinct: build in low-stakes practice before high-stakes assessment, design for more than one way to demonstrate a skill, and treat learner performance data as an ongoing input to the next design cycle rather than a one-time grade.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <!-- /container -->
+    </main>
+
+    <!-- Next project -->
+    <div class="next-project">
+        <div class="container">
+            <span class="section-label">Related work</span>
+            <a href="resong.html" class="next-link">resong: Prompt-Scaffolding Case Study →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-name">Sara Fazeli</span>
+                <span class="footer-copy">© 2026 · Built with care and accessibility in mind.</span>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+    // Back to top
+    const btt = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        btt.classList.toggle('show', window.scrollY > 400);
+    });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Fade up
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.cs-section, .flow-card, .modality-card, .step-item').forEach(el => {
+        el.classList.add('fade-up');
+        observer.observe(el);
+    });
+    </script>
+</body>
+</html>
