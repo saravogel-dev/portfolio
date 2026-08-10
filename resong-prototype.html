@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>resong — Interactive Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #2D6A4F;
+    --green-mid: #1D9E75;
+    --green-tint: #EAF3DE;
+    --green-dark: #27500A;
+    --orange: #D85A30;
+    --mood: #C47B2B;
+    --base: #F7F5EE;
+    --white: #FFFFFF;
+    --border: #E4E2D6;
+    --disabled: #C8D5CB;
+    --text-primary: #1D2B3A;
+    --text-secondary: #9BA3B0;
+    --text-green: #5A6B5E;
+    --tip-bg: #FEF8DA;
+    --tip-text: #41330A;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #E8E6DF;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  /* Prototype wrapper */
+  .proto-wrap {
+    width: 100%;
+    max-width: 960px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Step indicators */
+  .steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    transition: color 0.3s;
+  }
+  .step.active { color: var(--green); }
+  .step-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .step.active .step-dot { background: var(--green); }
+  .step.done .step-dot { background: var(--green-mid); }
+  .step.done { color: var(--green-mid); }
+  .step-sep { width: 24px; height: 1px; background: var(--border); }
+
+  /* App screen */
+  .screen {
+    width: 100%;
+    background: var(--base);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    position: relative;
+  }
+
+  /* Screen panels — stacked, show/hide with transitions */
+  .panel {
+    display: none;
+    flex-direction: column;
+  }
+  .panel.active { display: flex; }
+
+  /* NAV */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 44px; background: white; border-bottom: 1px solid var(--border);
+    padding: 0 16px; flex-shrink: 0;
+  }
+  .wordmark { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 500; color: var(--green); }
+  .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+  .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--green-tint); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 500; color: var(--green); }
+
+  /* BODY */
+  .app-body { display: flex; height: 580px; }
+
+  /* LEFT */
+  .left {
+    width: 360px; min-width: 360px;
+    border-right: 1px solid var(--border);
+    padding: 12px 10px;
+    display: flex; flex-direction: column; gap: 10px;
+    overflow-y: auto;
+  }
+  .sec-label { font-size: 10px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.05em; }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 1.5px dashed var(--disabled);
+    border-radius: var(--radius);
+    height: 130px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .upload-zone:hover { border-color: var(--green); background: var(--green-tint); }
+  .upload-icon { width: 32px; height: 32px; background: var(--green-tint); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .upload-text { font-size: 11px; color: var(--text-secondary); text-align: center; line-height: 1.5; }
+  .upload-text span { color: var(--green); font-weight: 500; }
+
+  /* Recording card */
+  .recording-card { background: white; border: 1px solid var(--border); border-radius: 9px; overflow: hidden; }
+  .card-header { display: flex; align-items: center; gap: 9px; padding: 9px 11px; }
+  .icon-box { width: 28px; height: 28px; background: var(--green-tint); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .wave-mini { display: flex; align-items: center; gap: 1.5px; }
+  .wave-mini span { width: 2px; border-radius: 1px; background: var(--green); display: block; }
+  .text-stack { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .card-title { font-size: 11px; font-weight: 500; color: var(--text-primary); }
+  .card-sub { font-size: 10px; color: var(--text-secondary); }
+  .play-btn { width: 20px; height: 20px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; transition: opacity 0.2s; }
+  .play-btn:hover { opacity: 0.85; }
+  .play-btn::after { content: ''; width: 0; height: 0; border-left: 7px solid white; border-top: 4px solid transparent; border-bottom: 4px solid transparent; margin-left: 2px; }
+  .card-footer { background: var(--base); border-top: 1px solid var(--border); padding: 4px 11px; height: 26px; display: flex; align-items: center; gap: 2px; }
+  .wf-bar { width: 3px; border-radius: 1.5px; background: var(--green); flex-shrink: 0; }
+
+  /* About box */
+  .about-box { background: var(--green-tint); border-radius: 7px; padding: 8px 10px; display: flex; flex-direction: column; gap: 5px; }
+  .about-top { display: flex; justify-content: space-between; align-items: center; }
+  .about-source { font-size: 10px; font-weight: 500; color: var(--green); }
+  .about-link { font-size: 10px; color: var(--green); text-decoration: underline; cursor: pointer; }
+  .about-body { font-size: 10px; color: var(--green-dark); line-height: 1.6; }
+
+  /* Sidebar nav */
+  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+  .nav-item { display: flex; align-items: center; gap: 7px; padding: 6px 8px; border-radius: 6px; font-size: 11px; color: var(--text-green); cursor: pointer; }
+  .nav-item:hover { background: var(--green-tint); }
+
+  /* RIGHT */
+  .right { flex: 1; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+  .right-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .right-sub { font-size: 11px; color: var(--text-secondary); margin-top: -6px; }
+
+  /* Prompt input */
+  .prompt-input { border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.3s; }
+  .prompt-input.active-border { border-color: var(--green-mid); }
+  .prompt-text-area { padding: 10px 12px; min-height: 64px; font-size: 11px; color: var(--text-secondary); line-height: 1.5; background: white; font-family: 'DM Sans', sans-serif; }
+  .prompt-text-area.filled { color: var(--text-primary); font-style: italic; }
+  .prompt-footer-bar { background: var(--border); padding: 4px 12px; display: flex; align-items: center; justify-content: space-between; }
+  .char-count { font-size: 10px; color: var(--text-primary); }
+  .progress-track { height: 3px; background: #ccc; border-radius: 2px; overflow: hidden; width: 55%; }
+  .progress-fill { height: 100%; background: var(--green-mid); border-radius: 2px; transition: width 0.5s; }
+
+  /* Link field */
+  .link-field { background: white; border: 1px solid var(--border); border-radius: 7px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+  .link-icon { width: 20px; height: 20px; background: var(--disabled); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .link-placeholder { font-size: 10px; font-style: italic; color: var(--text-secondary); }
+
+  /* Tip box */
+  .tip-box { background: var(--tip-bg); border-radius: 7px; padding: 7px 10px; font-size: 10px; color: var(--tip-text); line-height: 1.5; }
+
+  /* Buttons */
+  .btn { border-radius: 7px; padding: 11px; text-align: center; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
+  .btn-disabled { background: var(--border); border-color: var(--border); color: var(--text-secondary); cursor: default; }
+  .btn-active { background: var(--green); color: white; border-color: var(--green); }
+  .btn-active:hover { background: #235c42; }
+  .btn-copy { background: var(--green-tint); color: var(--green); border-color: var(--green); font-size: 12px; }
+  .btn-copy:hover { background: var(--green); color: white; }
+
+  /* Coverage */
+  .coverage-header { display: flex; justify-content: space-between; align-items: center; }
+  .coverage-label { font-size: 11px; font-weight: 500; color: var(--text-primary); }
+  .coverage-count { font-size: 10px; color: var(--text-secondary); }
+  .coverage-bar { height: 8px; border-radius: 20px; overflow: hidden; display: flex; }
+  .bar-mood { background: var(--mood); }
+  .bar-source { background: var(--green); }
+  .bar-empty { background: var(--border); }
+  .legend { display: flex; gap: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text-secondary); }
+  .legend-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .coverage-hint { font-size: 10px; color: var(--text-secondary); }
+
+  /* Accordion */
+  .accordion { display: flex; flex-direction: column; gap: 2px; }
+  .acc-row { display: flex; align-items: center; gap: 8px; padding: 6px 7px; border-radius: 7px; cursor: pointer; }
+  .acc-row.open { background: var(--green-tint); }
+  .acc-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .acc-name { font-size: 10px; font-weight: 500; white-space: nowrap; min-width: 82px; }
+  .acc-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .acc-fill { height: 100%; border-radius: 2px; }
+  .acc-pct { font-size: 10px; min-width: 28px; text-align: right; }
+  .acc-chev { font-size: 10px; color: var(--text-secondary); }
+  .chips-panel { padding: 4px 8px 8px 24px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip { padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 500; border: 1px solid var(--mood); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .chip.on { background: var(--mood); color: white; }
+  .chip.off { background: white; color: var(--mood); }
+
+  /* Generated prompt box */
+  .gen-box { background: white; border: 1.5px solid var(--green-mid); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .gen-label { font-size: 10px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.05em; }
+  .gen-prompt { font-size: 12px; color: var(--text-primary); line-height: 1.7; font-style: italic; }
+  .gen-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .gen-tag { padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 500; }
+  .tag-mood { background: #FEF0E0; color: var(--mood); }
+  .tag-source { background: var(--green-tint); color: var(--green); }
+  .tag-genre { background: #E8F0FE; color: #3B5DC9; }
+  .tag-quality { background: #F3E8FE; color: #7B3FB0; }
+  .tag-instr { background: #FDE8E8; color: #A33B3B; }
+  .gen-actions { display: flex; gap: 8px; }
+  .gen-actions .btn { flex: 1; font-size: 11px; padding: 9px; }
+
+  /* Screen 3 left — success state */
+  .success-card { background: var(--green-tint); border-radius: 9px; padding: 14px; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; }
+  .success-icon { width: 40px; height: 40px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .success-title { font-size: 12px; font-weight: 500; color: var(--green); }
+  .success-sub { font-size: 10px; color: var(--green-dark); line-height: 1.5; }
+  .suno-btn { background: var(--green); color: white; border-radius: 7px; padding: 8px 14px; font-size: 11px; font-weight: 500; font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+  .suno-btn:hover { opacity: 0.88; }
+
+  /* Nav controls */
+  .proto-nav { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .proto-label { font-size: 11px; color: var(--text-secondary); }
+  .nav-btns { display: flex; gap: 8px; }
+  .nav-btn { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 7px 14px; font-size: 11px; font-weight: 500; color: var(--text-primary); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .nav-btn:hover { border-color: var(--green); color: var(--green); }
+  .nav-btn.primary { background: var(--green); color: white; border-color: var(--green); }
+  .nav-btn.primary:hover { background: #235c42; }
+  .nav-btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* Divider */
+  .vdivider { width: 1px; background: var(--border); flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="proto-wrap">
+
+  <!-- Step indicators -->
+  <div class="steps" id="steps">
+    <div class="step active" id="s1"><div class="step-dot"></div> 01 · Empty</div>
+    <div class="step-sep"></div>
+    <div class="step" id="s2"><div class="step-dot"></div> 02 · In progress</div>
+    <div class="step-sep"></div>
+    <div class="step" id="s3"><div class="step-dot"></div> 03 · Prompt generated</div>
+  </div>
+
+  <!-- Screen -->
+  <div class="screen">
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 1 — EMPTY STATE
+    ══════════════════════════════════════════ -->
+    <div class="panel active" id="panel-1">
+      <div class="nav">
+        <div class="wordmark"><div class="nav-dot"></div> resong</div>
+        <div class="avatar">SF</div>
+      </div>
+      <div class="app-body">
+        <div class="left">
+          <div class="sec-label">YOUR RECORDING</div>
+          <div class="upload-zone" onclick="goTo(2)">
+            <div class="upload-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"/><polyline points="8 9 12 5 16 9"/><line x1="12" y1="5" x2="12" y2="16"/><line x1="3" y1="19" x2="21" y2="19"/></svg>
+            </div>
+            <div class="upload-text">Drop your recording here<br><span>click to browse</span> · mp3, wav, m4a</div>
+          </div>
+          <div class="sidebar-nav">
+            <div class="nav-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              My Playlist
+            </div>
+            <div class="nav-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Uploads
+            </div>
+            <div class="nav-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+              Previous Prompts
+            </div>
+          </div>
+        </div>
+        <div class="vdivider"></div>
+        <div class="right">
+          <div class="right-title">What should it sound like?</div>
+          <div class="right-sub">Describe the music you want to create from your recording.</div>
+
+          <div class="prompt-input">
+            <div class="prompt-text-area">e.g. haunting ambient strings with bird call echoing at dawn</div>
+            <div class="prompt-footer-bar">
+              <span class="char-count">0 / 120</span>
+              <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+
+          <div class="link-field">
+            <div class="link-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <span class="link-placeholder">Paste a Spotify or Apple Music link to match its style</span>
+          </div>
+
+          <div class="btn btn-disabled">Add your description to continue</div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div class="coverage-header">
+              <span class="coverage-label">Prompt coverage</span>
+              <span class="coverage-count">0 / 5 dimensions</span>
+            </div>
+            <div class="coverage-bar">
+              <div class="bar-empty" style="flex:1"></div>
+            </div>
+            <div class="coverage-hint">Add vocabulary from any dimension to get started</div>
+          </div>
+
+          <div class="accordion">
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Genre</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Sound Quality</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Mood</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Sound Source</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Instrument</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 2 — IN PROGRESS
+    ══════════════════════════════════════════ -->
+    <div class="panel" id="panel-2">
+      <div class="nav">
+        <div class="wordmark"><div class="nav-dot"></div> resong</div>
+        <div class="avatar">SF</div>
+      </div>
+      <div class="app-body">
+        <div class="left">
+          <div class="sec-label">YOUR RECORDING</div>
+          <div class="recording-card">
+            <div class="card-header">
+              <div class="icon-box">
+                <div class="wave-mini">
+                  <span style="height:4px"></span><span style="height:10px"></span><span style="height:6px"></span><span style="height:13px"></span><span style="height:8px"></span><span style="height:5px"></span><span style="height:11px"></span>
+                </div>
+              </div>
+              <div class="text-stack">
+                <div class="card-title">Cardinal · Gainesville FL</div>
+                <div class="card-sub">0:12 · recorded today</div>
+              </div>
+              <div class="play-btn"></div>
+            </div>
+            <div class="card-footer">
+              <div class="wf-bar" style="height:5px"></div><div class="wf-bar" style="height:11px"></div><div class="wf-bar" style="height:7px"></div><div class="wf-bar" style="height:15px"></div><div class="wf-bar" style="height:9px"></div><div class="wf-bar" style="height:6px"></div><div class="wf-bar" style="height:13px"></div><div class="wf-bar" style="height:8px"></div><div class="wf-bar" style="height:11px"></div><div class="wf-bar" style="height:5px"></div><div class="wf-bar" style="height:14px"></div><div class="wf-bar" style="height:7px"></div><div class="wf-bar" style="height:10px"></div><div class="wf-bar" style="height:4px"></div><div class="wf-bar" style="height:9px"></div><div class="wf-bar" style="height:12px"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sec-label" style="margin-bottom:5px;">ABOUT THIS SOUND</div>
+            <div class="about-box">
+              <div class="about-top"><span class="about-source">CORNELL LAB</span><span class="about-link">View ↗</span></div>
+              <div class="about-body">High-pitched metallic chips and series of loud, sweet whistles. Found in gardens and forest edges.</div>
+            </div>
+          </div>
+
+          <div class="sidebar-nav">
+            <div class="nav-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              My Playlist
+            </div>
+            <div class="nav-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Uploads
+            </div>
+            <div class="nav-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+              Previous Prompts
+            </div>
+          </div>
+        </div>
+        <div class="vdivider"></div>
+        <div class="right">
+          <div class="right-title">What should it sound like?</div>
+          <div class="right-sub">Describe the music you want to create from your recording.</div>
+
+          <div class="prompt-input active-border">
+            <div class="prompt-text-area filled">haunting, melancholy strings and piano, bird call echoing in the forest</div>
+            <div class="prompt-footer-bar">
+              <span class="char-count">71 / 120</span>
+              <div class="progress-track"><div class="progress-fill" style="width:59%"></div></div>
+            </div>
+          </div>
+
+          <div class="link-field">
+            <div class="link-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <span class="link-placeholder">Paste a Spotify or Apple Music link to match its style</span>
+          </div>
+
+          <div class="tip-box">Try adding a genre to give the AI a stronger musical direction.</div>
+
+          <div class="btn btn-disabled">Keep going — add more detail</div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div class="coverage-header">
+              <span class="coverage-label">Prompt coverage</span>
+              <span class="coverage-count">2 / 5 dimensions</span>
+            </div>
+            <div class="coverage-bar">
+              <div class="bar-mood" style="flex:1.5"></div>
+              <div class="bar-source" style="flex:1.5"></div>
+              <div class="bar-empty" style="flex:7"></div>
+            </div>
+            <div class="legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--mood)"></div> Mood</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Sound source</div>
+            </div>
+            <div class="coverage-hint">Try adding genre or sound quality to diversify your prompt</div>
+          </div>
+
+          <div class="accordion">
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Genre</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Sound Quality</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row open"><div class="acc-dot" style="background:var(--mood)"></div><span class="acc-name" style="color:var(--text-primary)">Mood</span><div class="acc-track"><div class="acc-fill" style="width:35%;background:var(--mood)"></div></div><span class="acc-pct" style="color:var(--mood)">35%</span><span class="acc-chev">∧</span></div>
+            <div class="chips-panel">
+              <span class="chip on">haunting</span>
+              <span class="chip on">melancholy</span>
+              <span class="chip off">eerie</span>
+              <span class="chip off">ethereal</span>
+              <span class="chip off">somber</span>
+              <span class="chip off">wistful</span>
+            </div>
+            <div class="acc-row"><div class="acc-dot" style="background:var(--green)"></div><span class="acc-name" style="color:var(--text-primary)">Sound Source</span><div class="acc-track"><div class="acc-fill" style="width:30%;background:var(--green)"></div></div><span class="acc-pct" style="color:var(--green)">30%</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row"><div class="acc-dot" style="background:var(--border)"></div><span class="acc-name" style="color:var(--text-secondary)">Instrument</span><div class="acc-track"></div><span class="acc-pct" style="color:var(--text-secondary)">—</span><span class="acc-chev">∨</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 3 — PROMPT GENERATED
+    ══════════════════════════════════════════ -->
+    <div class="panel" id="panel-3">
+      <div class="nav">
+        <div class="wordmark"><div class="nav-dot"></div> resong</div>
+        <div class="avatar">SF</div>
+      </div>
+      <div class="app-body">
+        <div class="left">
+          <div class="sec-label">YOUR RECORDING</div>
+          <div class="recording-card">
+            <div class="card-header">
+              <div class="icon-box">
+                <div class="wave-mini">
+                  <span style="height:4px"></span><span style="height:10px"></span><span style="height:6px"></span><span style="height:13px"></span><span style="height:8px"></span><span style="height:5px"></span><span style="height:11px"></span>
+                </div>
+              </div>
+              <div class="text-stack">
+                <div class="card-title">Cardinal · Gainesville FL</div>
+                <div class="card-sub">0:12 · recorded today</div>
+              </div>
+              <div class="play-btn"></div>
+            </div>
+            <div class="card-footer">
+              <div class="wf-bar" style="height:5px"></div><div class="wf-bar" style="height:11px"></div><div class="wf-bar" style="height:7px"></div><div class="wf-bar" style="height:15px"></div><div class="wf-bar" style="height:9px"></div><div class="wf-bar" style="height:6px"></div><div class="wf-bar" style="height:13px"></div><div class="wf-bar" style="height:8px"></div><div class="wf-bar" style="height:11px"></div><div class="wf-bar" style="height:5px"></div><div class="wf-bar" style="height:14px"></div><div class="wf-bar" style="height:7px"></div><div class="wf-bar" style="height:10px"></div><div class="wf-bar" style="height:4px"></div>
+            </div>
+          </div>
+
+          <div class="success-card">
+            <div class="success-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="success-title">Your prompt is ready</div>
+            <div class="success-sub">Copy it into Suno AI to generate your song. Come back and refine anytime.</div>
+            <button class="suno-btn">
+              Open Suno AI
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </button>
+          </div>
+
+          <div class="sidebar-nav">
+            <div class="nav-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              My Playlist
+            </div>
+            <div class="nav-item" style="background:var(--green-tint);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A6B5E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+              Previous Prompts
+              <span style="margin-left:auto;font-size:9px;background:var(--green);color:white;padding:1px 6px;border-radius:10px;">1</span>
+            </div>
+          </div>
+        </div>
+        <div class="vdivider"></div>
+        <div class="right">
+          <div class="right-title">Your generated prompt</div>
+          <div class="right-sub">Ready to paste into Suno AI.</div>
+
+          <div class="gen-box">
+            <div class="gen-label">SUNO PROMPT</div>
+            <div class="gen-prompt">haunting, melancholy chamber music with solo cello and sparse piano, a distant bird call woven through the texture, cinematic and introspective, acoustic folk influence, slow tempo, 60 BPM</div>
+            <div class="gen-tags">
+              <span class="gen-tag tag-mood">Mood · haunting, melancholy</span>
+              <span class="gen-tag tag-source">Sound source · bird call</span>
+              <span class="gen-tag tag-genre">Genre · chamber, folk</span>
+              <span class="gen-tag tag-quality">Quality · acoustic, cinematic</span>
+              <span class="gen-tag tag-instr">Instrument · cello, piano</span>
+            </div>
+            <div class="gen-actions">
+              <div class="btn btn-copy" onclick="copyPrompt(this)">Copy prompt</div>
+              <div class="btn" style="background:var(--green-tint);color:var(--green);border-color:var(--green);font-size:11px;padding:9px;">Refine further</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div class="coverage-header">
+              <span class="coverage-label">Prompt coverage</span>
+              <span class="coverage-count" style="color:var(--green);font-weight:500;">5 / 5 dimensions ✓</span>
+            </div>
+            <div class="coverage-bar">
+              <div class="bar-mood" style="flex:1"></div>
+              <div class="bar-source" style="flex:1"></div>
+              <div style="flex:1;background:#3B5DC9"></div>
+              <div style="flex:1;background:#7B3FB0"></div>
+              <div style="flex:1;background:#A33B3B"></div>
+            </div>
+            <div class="legend" style="flex-wrap:wrap;gap:8px;">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--mood)"></div> Mood</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Sound source</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#3B5DC9"></div> Genre</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#7B3FB0"></div> Sound quality</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#A33B3B"></div> Instrument</div>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <div class="acc-row" style="background:var(--green-tint)"><div class="acc-dot" style="background:var(--mood)"></div><span class="acc-name" style="color:var(--text-primary)">Mood</span><div class="acc-track"><div class="acc-fill" style="width:100%;background:var(--mood)"></div></div><span class="acc-pct" style="color:var(--mood)">35%</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row" style="background:var(--green-tint)"><div class="acc-dot" style="background:var(--green)"></div><span class="acc-name" style="color:var(--text-primary)">Sound Source</span><div class="acc-track"><div class="acc-fill" style="width:100%;background:var(--green)"></div></div><span class="acc-pct" style="color:var(--green)">30%</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row" style="background:#EEF2FF"><div class="acc-dot" style="background:#3B5DC9"></div><span class="acc-name" style="color:var(--text-primary)">Genre</span><div class="acc-track"><div class="acc-fill" style="width:100%;background:#3B5DC9"></div></div><span class="acc-pct" style="color:#3B5DC9">25%</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row" style="background:#F8F0FF"><div class="acc-dot" style="background:#7B3FB0"></div><span class="acc-name" style="color:var(--text-primary)">Sound Quality</span><div class="acc-track"><div class="acc-fill" style="width:100%;background:#7B3FB0"></div></div><span class="acc-pct" style="color:#7B3FB0">20%</span><span class="acc-chev">∨</span></div>
+            <div class="acc-row" style="background:#FFF0F0"><div class="acc-dot" style="background:#A33B3B"></div><span class="acc-name" style="color:var(--text-primary)">Instrument</span><div class="acc-track"><div class="acc-fill" style="width:100%;background:#A33B3B"></div></div><span class="acc-pct" style="color:#A33B3B">20%</span><span class="acc-chev">∨</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Prototype nav controls -->
+  <div class="proto-nav">
+    <span class="proto-label" id="proto-label">Screen 1 of 3 — Click the upload zone to continue</span>
+    <div class="nav-btns">
+      <button class="nav-btn" id="btn-prev" onclick="prev()" disabled>← Back</button>
+      <button class="nav-btn primary" id="btn-next" onclick="next()">Next →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let current = 1;
+  const total = 3;
+  const labels = [
+    '01 · Empty state — click the upload zone to continue',
+    '02 · In progress — user has uploaded a recording and is filling in dimensions',
+    '03 · Prompt generated — all 5 dimensions filled, prompt ready to copy'
+  ];
+
+  function goTo(n) {
+    document.getElementById('panel-' + current).classList.remove('active');
+    current = n;
+    document.getElementById('panel-' + current).classList.add('active');
+    updateUI();
+  }
+
+  function next() { if (current < total) goTo(current + 1); }
+  function prev() { if (current > 1) goTo(current - 1); }
+
+  function updateUI() {
+    document.getElementById('btn-prev').disabled = current === 1;
+    document.getElementById('btn-next').disabled = current === total;
+    document.getElementById('proto-label').textContent = labels[current - 1];
+    for (let i = 1; i <= total; i++) {
+      const el = document.getElementById('s' + i);
+      el.classList.remove('active', 'done');
+      if (i === current) el.classList.add('active');
+      else if (i < current) el.classList.add('done');
+    }
+  }
+
+  function copyPrompt(btn) {
+    const text = 'haunting, melancholy chamber music with solo cello and sparse piano, a distant bird call woven through the texture, cinematic and introspective, acoustic folk influence, slow tempo, 60 BPM';
+    navigator.clipboard.writeText(text).catch(() => {});
+    btn.textContent = 'Copied ✓';
+    btn.style.background = 'var(--green)';
+    btn.style.color = 'white';
+    setTimeout(() => { btn.textContent = 'Copy prompt'; btn.style.background = ''; btn.style.color = ''; }, 2000);
+  }
+
+  updateUI();
+</script>
+</body>
+</html>
